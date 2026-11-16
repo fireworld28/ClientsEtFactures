@@ -7,9 +7,10 @@ public class Client
 {
 	private int numclient; 
 	private String nom;
-	private int static indexNumClient;
-	private int numFactureOfClient;
+	private static int indexNumClient = 0;
+	private int numFactureOfClient = 0;
 	private List<Facture> factures = new ArrayList<>();
+	private static list<CLient> tousLesClients = new ArrayList<>();
 	/** 
 	 * Crée un client.
 	 * @param nom le nom du client. 
@@ -17,9 +18,9 @@ public class Client
 	
 	public Client(String nom)
 	{
-		this.nom = nom;
 		this.numclient = ++indexNumClient;
-		
+		this.nom = nom;
+		tousLesClients.add(this);     		
 	}
 
 	/**
@@ -40,6 +41,8 @@ public class Client
 	public void setNom(String nom)
 	{
 		this.nom = nom;
+		
+		
 	}
 	
 	/**
@@ -51,7 +54,10 @@ public class Client
 	public Facture createFacture(int montant)
 	{
 		Facture f  = new Facture();
-		
+		f.numFactureOfClient = ++numFactureOfClient;
+		f.datefacture = LocalDate.now();
+		f.montant = montant;
+		this.add(f);
 		return f ;
 	}
 	
@@ -62,8 +68,7 @@ public class Client
 
 	public List<Facture> getFactures()
 	{
-		List<Facture>
-		return null;
+		return this.factures;
 	}
 	
 	/**
@@ -73,7 +78,9 @@ public class Client
 	
 	public int sommeMontants()
 	{
-		return 0;
+		int total;
+		for (Facture f : client.getFactures()) {total += f.getMontant();}
+		return total;
 	}
 
 	/**
@@ -85,7 +92,9 @@ public class Client
 	
 	public Facture createFacture(int montant, boolean reglee)
 	{
-		return null;
+		Facture f = new createFacture(montant);
+		f.setReglee(reglee) ;
+		return f ;
 	}	
 	
 	/**
@@ -95,7 +104,15 @@ public class Client
 
 	public List<Facture> facturesReglees()
 	{
-		return null;
+		List<Facture> tempFactures = new ArrayList<>();
+		for(Facture f : Client.getFacture())
+		{
+			if (!f.estReglee())
+			{
+				tempFactures.add(f);
+			}
+		}
+		return tempFactures;
 	}
 	
 
@@ -105,7 +122,8 @@ public class Client
 	 */
 	public static List<Client> tous()
 	{
-		return null;
+		List<Facture> listClient = new ArrayList<>();
+		return listClient.copyOf(tousLesClients);
 	}
 	
 	/**
@@ -114,5 +132,6 @@ public class Client
 	
 	public void delete()
 	{
+		tousLesClients.remove(tousLesClients.indexOf(this.nom));
 	}
 }
