@@ -10,7 +10,7 @@ public class Client
 	private static int indexNumClient = 0;
 	private int numFactureOfClient = 0;
 	private List<Facture> factures = new ArrayList<>();
-	private static list<CLient> tousLesClients = new ArrayList<>();
+	private static List<CLient> tousLesClients = new ArrayList<>();
 	/** 
 	 * Crée un client.
 	 * @param nom le nom du client. 
@@ -53,12 +53,9 @@ public class Client
 	
 	public Facture createFacture(int montant)
 	{
-		Facture f  = new Facture();
-		f.numFactureOfClient = ++numFactureOfClient;
-		f.datefacture = LocalDate.now();
-		f.montant = montant;
-		this.add(f);
-		return f ;
+		Facture f = new Facture(this, ++dernierNumFacture, montant, LocalDate.now());
+		factures.add(f);
+		return f;
 	}
 	
 	/**
@@ -68,7 +65,9 @@ public class Client
 
 	public List<Facture> getFactures()
 	{
-		return this.factures;
+		List<Facture> copie = new ArrayList<>();
+		
+		return copie.copyOf(factures) ;
 	}
 	
 	/**
@@ -78,8 +77,9 @@ public class Client
 	
 	public int sommeMontants()
 	{
-		int total;
-		for (Facture f : client.getFactures()) {total += f.getMontant();}
+		int total = 0;
+		for (Facture f : factures) 
+			{total += f.getMontant();}
 		return total;
 	}
 
@@ -92,7 +92,7 @@ public class Client
 	
 	public Facture createFacture(int montant, boolean reglee)
 	{
-		Facture f = new createFacture(montant);
+		Facture f = createFacture(montant);
 		f.setReglee(reglee) ;
 		return f ;
 	}	
@@ -105,9 +105,9 @@ public class Client
 	public List<Facture> facturesReglees()
 	{
 		List<Facture> tempFactures = new ArrayList<>();
-		for(Facture f : Client.getFacture())
+		for(Facture f : factures)
 		{
-			if (!f.estReglee())
+			if (f.estReglee())
 			{
 				tempFactures.add(f);
 			}
@@ -122,7 +122,6 @@ public class Client
 	 */
 	public static List<Client> tous()
 	{
-		List<Facture> listClient = new ArrayList<>();
 		return listClient.copyOf(tousLesClients);
 	}
 	
@@ -132,6 +131,6 @@ public class Client
 	
 	public void delete()
 	{
-		tousLesClients.remove(tousLesClients.indexOf(this.nom));
+		tousLesClients.remove(this);
 	}
 }

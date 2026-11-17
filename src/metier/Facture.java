@@ -10,12 +10,39 @@ public class Facture
 	private LocalDate datefacture;
 	private boolean reglementfacture = false;
 	
-	
+	/**
+	 * constructeur de l'objet Facture
+	 * @param client
+	 * @param numFactureOfClient
+	 * @param montant
+	 * @param datefacture
+	 */
+
+	public Facture(Client client, int numFactureOfClient, int montant, LocalDate datefacture)
+	{
+		this.client = client;
+		this.numFactureOfClient = ++numFactureOfClient;
+		this.montant = montant;
+		this.datefacture = datefacture;
+	}
+
+	/**
+	 *surchargeur du constructeur qui mets directement la date actuelle de la création de la facture
+	 *@param client
+	 *@param numFactureOfClient
+	 *@param montant	 
+	 */
+
+	public Facture(Client client, int numFactureOfClient, int montant)
+	{
+		this(client, numFactureOfClient, montant, LocalDate.now());
+	}
+
 	/**
 	 * Retourne le client à qui est adressée la facture..
 	 * @return le client.
 	 */
-	
+
 	public Client getClient()
 	{
 		return client;
