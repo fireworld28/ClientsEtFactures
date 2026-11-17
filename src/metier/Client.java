@@ -10,7 +10,7 @@ public class Client
 	private static int indexNumClient = 0;
 	private int numFactureOfClient = 0;
 	private List<Facture> factures = new ArrayList<>();
-	private static List<CLient> tousLesClients = new ArrayList<>();
+	private static List<Client> tousLesClients = new ArrayList<>();
 	/** 
 	 * Crée un client.
 	 * @param nom le nom du client. 
@@ -53,7 +53,7 @@ public class Client
 	
 	public Facture createFacture(int montant)
 	{
-		Facture f = new Facture(this, ++dernierNumFacture, montant, LocalDate.now());
+		Facture f = new Facture(this, ++dernierNumFacture, montant);
 		factures.add(f);
 		return f;
 	}
@@ -66,8 +66,7 @@ public class Client
 	public List<Facture> getFactures()
 	{
 		List<Facture> copie = new ArrayList<>();
-		
-		return copie.copyOf(factures) ;
+		return new ArrayList<>(factures);
 	}
 	
 	/**
@@ -122,7 +121,7 @@ public class Client
 	 */
 	public static List<Client> tous()
 	{
-		return listClient.copyOf(tousLesClients);
+		return new ArrayList<>(tousLesClients);
 	}
 	
 	/**
