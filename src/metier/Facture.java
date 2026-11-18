@@ -96,10 +96,10 @@ public class Facture
 	 * Supprime la facture
 	 */
 	
-	public void delete()
-	{
-		this.client;
-	}
+    public void delete()
+    {
+    	client.supprimer(this);
+    }
 	
 	/**
 	 * Duplique la facture.

@@ -7,10 +7,11 @@ public class Client
 {
 	private int numclient; 
 	private String nom;
-	private static int indexNumClient = 0;
-	private int numFactureOfClient = 0;
-	private List<Facture> factures = new ArrayList<>();
-	private static List<Client> tousLesClients = new ArrayList<>();
+	private static int indexNumClient;
+	private int numFactureOfClient;
+	private final List<Facture> factures = new ArrayList<>();
+	private final static List<Client> tousLesClients = new ArrayList<>();
+
 	/** 
 	 * Crée un client.
 	 * @param nom le nom du client. 
