@@ -8,7 +8,7 @@ public class Facture
 	private int numFactureOfClient;
 	private int montant;
 	private LocalDate datefacture;
-	private boolean reglementfacture = false;
+	private boolean reglementFacture = false;
 	
 	/**
 	 * constructeur de l'objet Facture
@@ -16,21 +16,35 @@ public class Facture
 	 * @param numFactureOfClient
 	 * @param montant
 	 * @param datefacture
+     * @param reglementFacture
 	 */
 
-	public Facture(Client client, int numFactureOfClient, int montant, LocalDate datefacture)
+	public Facture(Client client, int numFactureOfClient, int montant, LocalDate datefacture, boolean reglementFacture)
 	{
 		this.client = client;
 		this.numFactureOfClient = ++numFactureOfClient;
 		this.montant = montant;
 		this.datefacture = datefacture;
+        this.reglementFacture = reglementFacture;
+	}
+
+    /**
+	 * -surchargeur du constructeur qui met directement que la facture est non payée
+	 * -@param client
+	 * -@param numFactureOfClient
+	 * -@param montant
+	 * -@param datefacture	 
+	 */
+	public Facture(Client client, int numFactureOfClient, int montant, LocalDate datefacture)
+	{
+		this(client, numFactureOfClient, montant, datefacture, false);
 	}
 
 	/**
-	 *surchargeur du constructeur qui mets directement la date actuelle de la création de la facture
-	 *@param client
-	 *@param numFactureOfClient
-	 *@param montant	 
+	 * surchargeur du constructeur qui mets directement la date actuelle de la création de la facture
+	 * @param client
+	 * @param numFactureOfClient
+	 * @param montant	 
 	 */
 
 	public Facture(Client client, int numFactureOfClient, int montant)
@@ -65,7 +79,7 @@ public class Facture
 	
 	public boolean estReglee()
 	{
-		return this.reglementfacture;
+		return this.reglementFacture;
 	}
 
 	/**
@@ -84,7 +98,7 @@ public class Facture
 	
 	public void delete()
 	{
-		factures.remove(this.numFactureOfClient);
+		this.client;
 	}
 	
 	/**
@@ -94,12 +108,7 @@ public class Facture
 	
 	public Facture copie()
 	{
-		Facture f = new Facture();
-		f.numclient = this.numclient;
-		f.numFactureOfClient = this.numFactureOfClient;
-		f.datefacture = this.datefacture;
-		f.montant = this.montant;
-		f.reglementfacture = this.reglementfacture;
-		return f;
+        Facture copie = new Facture(this.client, this.numFactureOfClient, this.montant, this.datefacture, this.reglementFacture);
+		return copie ;
 	}
 }
